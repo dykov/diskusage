@@ -28,7 +28,7 @@ func FileSpaceUsage(path string) (uint64, error) {
 
 }
 
-type FileInfo struct {
+type DiskInfo struct {
 	Filesystem        string  `json:"filesystem"`
 	Total             uint64  `json:"total"`
 	Used              uint64  `json:"used"`
@@ -38,7 +38,7 @@ type FileInfo struct {
 	MountedOn         string  `json:"mounted_on"`
 }
 
-func DiskSpaceUsage() (*FileInfo, error) {
+func DiskSpaceUsage() (*DiskInfo, error) {
 
 	cmd := exec.Command("df", "/")
 
@@ -78,7 +78,7 @@ func DiskSpaceUsage() (*FileInfo, error) {
 	usedPercentFloat := (float64(used) / float64(total)) * 100.0
 	mountedOn := values[5]
 
-	fileInfo := &FileInfo{
+	diskInfo := &DiskInfo{
 		filesystem,
 		total,
 		used,
@@ -88,6 +88,6 @@ func DiskSpaceUsage() (*FileInfo, error) {
 		mountedOn,
 	}
 
-	return fileInfo, nil
+	return diskInfo, nil
 
 }
